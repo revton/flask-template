@@ -29,3 +29,7 @@ poetry run pytest
 ```
 
 
+## Safety
+```bash
+safety check
+```
