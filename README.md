@@ -59,8 +59,24 @@ poetry add flask
 poetry run pytest
 ```
 
+- Exportar as dependências do projeto
+```bash
+poetry export -f requirements.txt --output requirements.txt
+```
 
 ### Safety ###
 ```bash
 safety check
+```
+
+### Docker ###
+
+- Fazer build do container, não esquecer de exportar as dependências do projeto para o requirements.txt
+```bash
+docker build -f Dockerfile . -t flask-template 
+```
+
+- Executar a imagem criada
+```bash
+docker run -p 5000:5000/tcp -d flask-template:latest
 ```
