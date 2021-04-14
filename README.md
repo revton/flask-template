@@ -1,7 +1,38 @@
 # Template Flask Application #
 
+## Escopo ##
 
-## Poetry ##
+- [x] Poetry
+- [x] Pytest
+- [x] Flask
+- [x] Safety
+- [x] Linter
+- [ ] Docker
+- [ ] DebugToolbar
+- [ ] Behave
+- [ ] Configuration
+- [ ] Logging
+- [ ] API
+- [ ] Database
+- [ ] Migration
+- [ ] Admin
+- [ ] Login
+- [ ] Forms
+- [ ] Mail
+- [ ] CSRF Protection
+- [ ] Appearence
+- [ ] Commands
+- [ ] Template
+- [ ] Queue
+- [ ] Dashboard
+- [ ] Cache
+- [ ] Internationalization and localization
+- [ ] Web Server
+- [ ] Web Application
+
+## Documentação ###
+
+### Poetry ###
 
 - Criando virtualenv
 ```bash
@@ -29,7 +60,7 @@ poetry run pytest
 ```
 
 
-## Safety
+### Safety ###
 ```bash
 safety check
 ```
