@@ -7,7 +7,7 @@
 - [x] Flask
 - [x] Safety
 - [x] Linter
-- [ ] Docker
+- [x] Docker
 - [ ] DebugToolbar
 - [ ] Behave
 - [ ] Configuration
@@ -27,7 +27,7 @@
 - [ ] Dashboard
 - [ ] Cache
 - [ ] Internationalization and localization
-- [ ] Web Server
+- [x] Web Server
 - [ ] Web Application
 
 ## Documentação ###
