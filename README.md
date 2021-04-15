@@ -8,6 +8,7 @@
 - [x] Safety
 - [x] Linter
 - [x] Docker
+- [ ] Coverage
 - [ ] DebugToolbar
 - [ ] Behave
 - [ ] Configuration
