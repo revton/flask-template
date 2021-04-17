@@ -8,7 +8,8 @@
 - [x] Safety
 - [x] Linter
 - [x] Docker
-- [ ] DebugToolbar
+- [x] Coverage
+- [x] DebugToolbar
 - [ ] Behave
 - [ ] Configuration
 - [ ] Logging
@@ -79,4 +80,21 @@ docker build -f Dockerfile . -t flask-template
 - Executar a imagem criada
 ```bash
 docker run -p 5000:5000/tcp -d flask-template:latest
+```
+
+### Coverage ###
+
+- Executar o teste de cobertura
+```bash
+coverage run --source=flask_template -m pytest 
+```
+
+- Gerar relatório de cobertura
+```bash
+coverage report
+```
+
+- Gerar HTML
+```bash
+coverage html
 ```
