@@ -9,7 +9,7 @@
 - [x] Linter
 - [x] Docker
 - [x] Coverage
-- [ ] DebugToolbar
+- [x] DebugToolbar
 - [ ] Behave
 - [ ] Configuration
 - [ ] Logging
