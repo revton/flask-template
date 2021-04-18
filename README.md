@@ -10,6 +10,7 @@
 - [x] Docker
 - [x] Coverage
 - [x] DebugToolbar
+- [ ] Cyclomatic Complexity
 - [ ] Behave
 - [x] Configuration
 - [x] Logging
