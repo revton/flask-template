@@ -98,3 +98,10 @@ coverage report
 ```bash
 coverage html
 ```
+
+### Dynaconf ###
+
+- Validar as configurações a partir do `dynaconf_validators.toml`
+```bash
+dynaconf validate
+```
