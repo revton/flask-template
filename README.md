@@ -10,10 +10,13 @@
 - [x] Docker
 - [x] Coverage
 - [x] DebugToolbar
-- [ ] Cyclomatic Complexity
-- [ ] Behave
+- [x] Cyclomatic Complexity
 - [x] Configuration
 - [x] Logging
+- [ ] Commands
+- [ ] Web Application
+- [ ] Internationalization and localization
+- [ ] Behave
 - [ ] API
 - [ ] Database
 - [ ] Migration
@@ -23,14 +26,12 @@
 - [ ] Mail
 - [ ] CSRF Protection
 - [ ] Appearence
-- [ ] Commands
 - [ ] Template
 - [ ] Queue
 - [ ] Dashboard
 - [ ] Cache
-- [ ] Internationalization and localization
 - [x] Web Server
-- [ ] Web Application
+
 
 ## Documentação ###
 
@@ -105,4 +106,16 @@ coverage html
 - Validar as configurações a partir do `dynaconf_validators.toml`
 ```bash
 dynaconf validate
+```
+
+### Radon ###
+
+- Verificar complexidade ciclomática
+```bash
+radon cc flask_template -a -s
+```
+
+- Verificar índice de manutenibilidade
+```bash
+radon mi flask_template
 ```
