@@ -41,8 +41,8 @@ def configure_logging(app: Flask):
             "formatters": {
                 "default": {
                     "format": "[%(name)s][%(asctime)s] %(levelname)s "
-                              "in %(module)s.%(funcName)s[Line:%(lineno)d]: "
-                              "%(message)s",
+                    "in %(module)s.%(funcName)s[Line:%(lineno)d]: "
+                    "%(message)s",
                 }
             },
             "handlers": {
