@@ -11,7 +11,7 @@
 - [x] Coverage
 - [x] DebugToolbar
 - [ ] Behave
-- [ ] Configuration
+- [x] Configuration
 - [ ] Logging
 - [ ] API
 - [ ] Database
@@ -97,4 +97,11 @@ coverage report
 - Gerar HTML
 ```bash
 coverage html
+```
+
+### Dynaconf ###
+
+- Validar as configurações a partir do `dynaconf_validators.toml`
+```bash
+dynaconf validate
 ```
