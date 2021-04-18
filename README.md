@@ -12,7 +12,7 @@
 - [x] DebugToolbar
 - [ ] Behave
 - [x] Configuration
-- [ ] Logging
+- [x] Logging
 - [ ] API
 - [ ] Database
 - [ ] Migration
