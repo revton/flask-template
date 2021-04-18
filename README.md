@@ -11,7 +11,7 @@
 - [x] Coverage
 - [x] DebugToolbar
 - [ ] Behave
-- [ ] Configuration
+- [x] Configuration
 - [ ] Logging
 - [ ] API
 - [ ] Database
