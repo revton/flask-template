@@ -14,7 +14,8 @@
 - [x] Configuration
 - [x] Logging
 - [x] Commands
-- [ ] Web Application
+- [x] Application Server
+- [ ] Web Server
 - [ ] Internationalization and localization
 - [ ] Behave
 - [ ] API
@@ -30,7 +31,6 @@
 - [ ] Queue
 - [ ] Dashboard
 - [ ] Cache
-- [x] Web Server
 
 
 ## Documentação ###
