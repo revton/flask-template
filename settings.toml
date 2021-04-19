@@ -1,9 +1,7 @@
 [default]
 LOG_FOLDER = "logs"
 APPLICATION_NAME = "FLASK-TEMPLATE"
-EXTENSIONS = [
-    "flask_template.commands:init_app",
-]
+EXTENSIONS = []
 
 [development]
 EXTENSIONS = [
