@@ -4,6 +4,8 @@ import datetime
 from dynaconf import FlaskDynaconf
 from flask import Flask
 
+from flask_template import commands
+
 
 def create_app():
     app = Flask(__name__)
@@ -11,6 +13,8 @@ def create_app():
     conf = FlaskDynaconf()
     conf.init_app(app, settings_file=["settings.toml", ".secrets.toml"])
     app.config.load_extensions()
+
+    register_commands(app)
 
     configure_logging(app)
     configure_request(app)
@@ -23,6 +27,15 @@ def create_app():
         return f"<html><body>{app.config.APPLICATION_NAME}</body></html>"
 
     return app
+
+
+def register_commands(app):
+    """Register Click commands."""
+    app.cli.add_command(commands.coverage)
+    app.cli.add_command(commands.lint)
+    app.cli.add_command(commands.radon)
+    app.cli.add_command(commands.safety)
+    app.cli.add_command(commands.dynaconf_validate)
 
 
 def configure_logging(app: Flask):

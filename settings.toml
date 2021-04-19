@@ -1,11 +1,11 @@
 [default]
 LOG_FOLDER = "logs"
+APPLICATION_NAME = "FLASK-TEMPLATE"
+EXTENSIONS = [
+    "flask_template.commands:init_app",
+]
 
 [development]
 EXTENSIONS = [
     "flask_debugtoolbar:DebugToolbarExtension"
 ]
-APPLICATION_NAME = "FLASK-TEMPLATE DEV"
-
-[production]
-APPLICATION_NAME = "FLASK-TEMPLATE"

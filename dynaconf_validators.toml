@@ -1,6 +1,7 @@
+[default]
+APPLICATION_NAME = {eq="FLASK-TEMPLATE"}
+LOG_FOLDER = {must_exist=true}
+
 [development]
-APPLICATION_NAME = {eq="FLASK-TEMPLATE DEV"}
 EXTENSIONS = {must_exist=true}
 
-[production]
-APPLICATION_NAME = {eq="FLASK-TEMPLATE"}
