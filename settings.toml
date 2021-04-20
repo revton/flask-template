@@ -1,9 +1,12 @@
 [default]
 LOG_FOLDER = "logs"
 APPLICATION_NAME = "FLASK-TEMPLATE"
-EXTENSIONS = []
+EXTENSIONS = [
+    "flask_babel:Babel"
+]
 
 [development]
 EXTENSIONS = [
+    "dynaconf_merge",
     "flask_debugtoolbar:DebugToolbarExtension"
 ]
