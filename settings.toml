@@ -1,9 +1,16 @@
 [default]
 LOG_FOLDER = "logs"
 APPLICATION_NAME = "FLASK-TEMPLATE"
-EXTENSIONS = []
+
+FLASK_ADMIN_SWATCH = "Journal"
 
 [development]
 EXTENSIONS = [
-    "flask_debugtoolbar:DebugToolbarExtension"
+    "flask_debugtoolbar:DebugToolbarExtension",
+    "flask_admin:Admin"
+]
+
+[production]
+EXTENSIONS = [
+    "flask_admin:Admin"
 ]
