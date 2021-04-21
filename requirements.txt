@@ -42,6 +42,8 @@ click==7.1.2; python_version >= "2.7" and python_full_version < "3.0.0" or pytho
 dynaconf==3.1.4 \
     --hash=sha256:e6f383b84150b70fc439c8b2757581a38a58d07962aa14517292dcce1a77e160 \
     --hash=sha256:b2f472d83052f809c5925565b8a2ba76a103d5dc1dbb9748b693ed67212781b9
+flask-admin==1.5.8 \
+    --hash=sha256:eb06a1f31b98881dee53a55c64faebd1990d6aac38826364b280df0b2679ff74
 flask==1.1.2; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0") \
     --hash=sha256:8a4fdd8936eba2512e9c85df320a37e694c93945b33ef33c89946a340a238557 \
     --hash=sha256:4efa1ae2d7c9865af48986de8aeb8504bf32c7f3d6fdc9353d34b21f4b127060
@@ -188,6 +190,9 @@ python-dotenv==0.17.0 \
 werkzeug==1.0.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" \
     --hash=sha256:2de2a5db0baeae7b2d2664949077c2ac63fbd16d98da0ff71837f7d1dea3fd43 \
     --hash=sha256:6c80b1e5ad3665290ea39320b91e1be1e0d5f60652b964a3070216de83d2e47c
+wtforms==2.3.3 \
+    --hash=sha256:7b504fc724d0d1d4d5d5c114e778ec88c37ea53144683e084215eed5155ada4c \
+    --hash=sha256:81195de0ac94fbc8368abbaf9197b88c4f3ffd6c2719b5bf5fc9da744f3d829c
 zope.event==4.5.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" \
     --hash=sha256:2666401939cdaa5f4e0c08cf7f20c9b21423b95e88f4675b1443973bdb080c42 \
     --hash=sha256:5e76517f5b9b119acf37ca8819781db6c16ea433f7e2062c4afc2b6fbedb1330

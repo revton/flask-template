@@ -19,7 +19,7 @@
 - [ ] Internationalization and localization
 - [x] Behave
 - [x] Selenium
-- [ ] Admin
+- [x] Admin
 - [ ] API
 - [ ] Database
 - [ ] Migration
