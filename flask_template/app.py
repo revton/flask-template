@@ -8,6 +8,7 @@ from flask_template import commands
 
 
 def create_app():
+    """ Setting Flask Application """
     app = Flask(__name__)
 
     conf = FlaskDynaconf()
@@ -40,7 +41,7 @@ def register_commands(app):
 
 def configure_logging(app: Flask):
     """
-    Definir as configurações de logging da aplicação
+    Settings of logging in applicattion
     :param app:
     """
     import logging
@@ -95,12 +96,13 @@ def configure_logging(app: Flask):
 
 
 def configure_request(app: Flask):
+    """ Setting log before and after each request """
     from flask import request
 
     @app.before_request
     def log_before_request():
         """
-        Loga dados antes de todas requisições
+        Log information before each request
         """
         app.logger.info(
             "\t".join(
@@ -117,7 +119,7 @@ def configure_request(app: Flask):
     @app.after_request
     def log_after_request(response):
         """
-        Loga dados depois de todas requisições com sucesso
+        Log information after each request with success
         """
         if response.status_code == 200:
             app.logger.info(

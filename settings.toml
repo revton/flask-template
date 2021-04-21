@@ -1,12 +1,17 @@
 [default]
 LOG_FOLDER = "logs"
 APPLICATION_NAME = "FLASK-TEMPLATE"
-EXTENSIONS = [
-    "flask_babel:Babel"
-]
+
+FLASK_ADMIN_SWATCH = "Journal"
 
 [development]
 EXTENSIONS = [
-    "dynaconf_merge",
-    "flask_debugtoolbar:DebugToolbarExtension"
+    "flask_debugtoolbar:DebugToolbarExtension",
+    "flask_babel:Babel",
+    "flask_admin:Admin"
+]
+
+[production]
+EXTENSIONS = [
+    "flask_admin:Admin"
 ]

@@ -77,6 +77,12 @@ def dynaconf_validate():
     )
 
 
+@click.command()
+def behave():
+    """ Run Behave Tests  """
+    _execute_tool("Checking behaviour tests", [], "behave", [])
+
+
 def _execute_tool(description: str, files_and_directories: list, *args: list):
     """Execute a checking tool with its arguments."""
     command_line = list(args) + files_and_directories

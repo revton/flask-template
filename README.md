@@ -17,11 +17,12 @@
 - [x] Application Server
 - [x] Web Server
 - [ ] Internationalization and localization
-- [ ] Behave
+- [x] Behave
+- [x] Selenium
+- [x] Admin
 - [ ] API
 - [ ] Database
 - [ ] Migration
-- [ ] Admin
 - [ ] Login
 - [ ] Forms
 - [ ] Mail
@@ -131,4 +132,18 @@ Commands:
   run                Run a development server.
   safety             Checks your installed dependencies for known security...
   shell              Run a shell in the app context.
+```
+
+### Behave ###
+
+- Executar os testes de comportamento
+```bash
+behave
+```
+
+### Selenium ###
+
+- Instalar chromedriver
+```bash
+brew cask install chromedriver
 ```
