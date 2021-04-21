@@ -19,10 +19,10 @@
 - [ ] Internationalization and localization
 - [x] Behave
 - [x] Selenium
+- [ ] Admin
 - [ ] API
 - [ ] Database
 - [ ] Migration
-- [ ] Admin
 - [ ] Login
 - [ ] Forms
 - [ ] Mail
