@@ -17,7 +17,8 @@
 - [x] Application Server
 - [x] Web Server
 - [ ] Internationalization and localization
-- [ ] Behave
+- [x] Behave
+- [ ] Selenium
 - [ ] API
 - [ ] Database
 - [ ] Migration
@@ -131,4 +132,11 @@ Commands:
   run                Run a development server.
   safety             Checks your installed dependencies for known security...
   shell              Run a shell in the app context.
+```
+
+### Behave ###
+
+- Executar os testes de comportamento
+```bash
+behave
 ```
