@@ -18,7 +18,7 @@
 - [x] Web Server
 - [ ] Internationalization and localization
 - [x] Behave
-- [ ] Selenium
+- [x] Selenium
 - [ ] API
 - [ ] Database
 - [ ] Migration
@@ -139,4 +139,11 @@ Commands:
 - Executar os testes de comportamento
 ```bash
 behave
+```
+
+### Selenium ###
+
+- Instalar chromedriver
+```bash
+brew cask install chromedriver
 ```
