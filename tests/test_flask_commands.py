@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 def teste_commands_nao_existe(test_client):
     import os
 

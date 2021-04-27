@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Module app."""
 import datetime
 
 from dynaconf import FlaskDynaconf
@@ -7,11 +8,11 @@ from flask import Flask
 from flask_template import commands
 
 
-def create_app():
-    """ Setting Flask Application """
+def create_app(**config):
+    """Configure Flask Application."""
     app = Flask(__name__)
+    conf = FlaskDynaconf(**config)
 
-    conf = FlaskDynaconf()
     conf.init_app(app, settings_file=["settings.toml", ".secrets.toml"])
     app.config.load_extensions()
 
@@ -40,10 +41,7 @@ def register_commands(app):
 
 
 def configure_logging(app: Flask):
-    """
-    Settings of logging in applicattion
-    :param app:
-    """
+    """Configure of logging in applicattion."""
     import logging
     import os
     from logging.config import dictConfig
@@ -82,7 +80,7 @@ def configure_logging(app: Flask):
     )
 
     info_file_handler = RotatingFileHandler(
-        log_filepath, maxBytes=100000, backupCount=10
+        log_filepath, maxBytes=1024 * 1024 * 100, backupCount=10
     )
     info_file_handler.setLevel(logging.INFO)
     info_file_handler.setFormatter(
@@ -96,14 +94,12 @@ def configure_logging(app: Flask):
 
 
 def configure_request(app: Flask):
-    """ Setting log before and after each request """
+    """Confgure log before and after each request."""
     from flask import request
 
     @app.before_request
     def log_before_request():
-        """
-        Log information before each request
-        """
+        """Log information before each reques."""
         app.logger.info(
             "\t".join(
                 [
@@ -118,9 +114,7 @@ def configure_request(app: Flask):
 
     @app.after_request
     def log_after_request(response):
-        """
-        Log information after each request with success
-        """
+        """Log information after each request with success."""
         if response.status_code == 200:
             app.logger.info(
                 "\t".join(

@@ -24,9 +24,16 @@ def lint():
 
 @click.command()
 def coverage():
-    """ Run/ Report/ HTML Coverage Tests."""
+    """Run/ Report/ HTML Coverage Tests."""
     # RUN
-    coverage_run_args = ["run", "--source=flask_template", "-m", "pytest", "-v"]
+    coverage_run_args = [
+        "run",
+        "--source=flask_template",
+        "-m",
+        "pytest",
+        "-v",
+        "-s",
+    ]
     _execute_tool("Checking coverage", [], "coverage", *coverage_run_args)
     # REPORT
     coverage_report_args = ["report"]
@@ -38,7 +45,7 @@ def coverage():
 
 @click.command()
 def radon():
-    """ Checks Cyclomatic Complexity and Halstead metrics."""
+    """Check Cyclomatic Complexity and Halstead metrics."""
     files_and_directories = _files_and_directories()
     # Cyclomatic Complexity
     radon_cc_args = ["cc", "-a", "-s", "-na"]
@@ -60,14 +67,14 @@ def radon():
 
 @click.command()
 def safety():
-    """ Checks your installed dependencies for known security vulnerabilitie."""
+    """Check your installed dependencies for known security vulnerabilitie."""
     safety_args = ["check"]
     _execute_tool("Checking installed dependencies", [], "safety", *safety_args)
 
 
 @click.command()
 def dynaconf_validate():
-    """ Checks validation of settings parameters."""
+    """Check validation of settings parameters."""
     dynaconf_args = ["validate"]
     _execute_tool(
         "Checking validation of settings parameters",
@@ -79,7 +86,7 @@ def dynaconf_validate():
 
 @click.command()
 def behave():
-    """ Run Behave Tests  """
+    """Run Behave Tests."""
     _execute_tool("Checking behaviour tests", [], "behave", [])
 
 
@@ -93,7 +100,7 @@ def _execute_tool(description: str, files_and_directories: list, *args: list):
 
 
 def _files_and_directories() -> list:
-    """ Get files and directories in your root_directory."""
+    """Get files and directories in your root_directory."""
     # Directory not necessary lint and check code style
     skip = ["htmlcov", "logs", "dist"]
     root_files = glob("*.py")
