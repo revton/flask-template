@@ -13,5 +13,9 @@ def init_app(app: Flask):
     from flask_template.model import User  # noqa
 
     with app.app_context():
-        db.create_all()
-        db.session.commit()
+        try:
+            db.create_all()
+            db.session.commit()
+        except:
+            # Quando sobe a aplicação e já existe o banco criado
+            ...
