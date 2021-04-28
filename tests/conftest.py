@@ -18,10 +18,11 @@ class TestClient(FlaskClient):
         return response
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def test_client():
-    app = create_app()
+    app = create_app(FORCE_ENV_FOR_DYNACONF="testing")
     app.test_client_class = TestClient
     with app.test_client() as testing_client:
         with app.app_context():
             yield testing_client
+            app.extensions["sqlalchemy"].db.drop_all()
