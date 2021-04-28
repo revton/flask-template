@@ -27,3 +27,29 @@ Feature: Admin
                 "email": "revtonbr@gmail.com"
             }
         """
+
+    Scenario: Edit user in Admin
+        Given that is on url "admin/user/"
+        When click in link to edit user
+        """
+            {
+                "name": "Revton editado",
+                "email": "revtonbr_atualizado@gmail.com"
+            }
+        """
+        Then See user created
+        """
+            {
+                "name": "Revton editado",
+                "email": "revtonbr_atualizado@gmail.com"
+            }
+        """
+
+    Scenario: Remove user in Admin
+        Given that is on url "admin/user/"
+        When click in button to remove user
+            | name           | email                         |
+            | Revton editado | revtonbr_atualizado@gmail.com |
+        Then Not see user removed
+            | name           | email                         |
+            | Revton editado | revtonbr_atualizado@gmail.com |

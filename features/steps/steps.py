@@ -42,6 +42,52 @@ def step_impl(context):
     context.browser.find_element_by_xpath("//input[@value='Save']").click()
 
 
+@when("click in link to edit user")
+def step_impl(context):
+    context.browser.current_url == "http://127.0.0.1:5001/admin/user/"
+    # TODO: Check if row is in context.text
+    link_edit = context.browser.find_element_by_xpath(
+        "//*[@id='no-more-tables']/table/tbody/tr/td[2]/a"
+    )
+    assert link_edit
+    link_edit.click()
+    "http://127.0.0.1:5001/admin/user/edit/" in context.browser.current_url
+    name = (By.ID, "name")
+    email = (By.ID, "email")
+    text_step = loads(context.text)
+
+    el_name = context.browser.find_element(*name)
+    el_name.clear()
+    el_name.send_keys(text_step["name"])
+
+    el_email = context.browser.find_element(*email)
+    el_email.clear()
+    el_email.send_keys(text_step["email"])
+
+    context.browser.find_element_by_xpath("//input[@value='Save']").click()
+
+
+@when("click in button to remove user")
+def step_impl(context):
+    context.browser.current_url == "http://127.0.0.1:5001/admin/user/"
+
+    table = (
+        By.CLASS_NAME,
+        "table",
+    )
+    table_elem = context.browser.find_element(*table)
+    assert table_elem
+
+    # TODO: Check if row is in context.table
+    table_row = (By.TAG_NAME, "tr")
+    rows_elem = table_elem.find_element(*table_row)
+    assert rows_elem
+
+    btn_remove = rows_elem.find_element_by_xpath("//td[2]/form/button")
+    btn_remove.click()
+    context.browser.switch_to_alert().accept()
+
+
 @then('should see the message "{message}"')
 def step_impl(context, message):
     assert context.browser.current_url == "http://127.0.0.1:5001/"
@@ -73,10 +119,38 @@ def step_impl(context, url_destination):
 @then("See user created")
 def step_impl(context):
     name = (By.CSS_SELECTOR, "td.col-name")
+    email = (By.CSS_SELECTOR, "td.col-email")
     text_step = loads(context.text)
-    columns = context.browser.find_elements(*name)
-    contains = False
-    for i in columns:
-        if i.text.strip() == text_step["name"]:
-            contains = True
-    assert contains
+
+    columns_name = context.browser.find_elements(*name)
+    columns_email = context.browser.find_elements(*email)
+
+    list_contains_name = [
+        x for x in columns_name if x.text.strip() == text_step["name"]
+    ]
+    assert len(list_contains_name) > 0
+
+    list_contains_email = [
+        x for x in columns_email if x.text.strip() == text_step["email"]
+    ]
+    assert len(list_contains_email) > 0
+
+
+@then("Not see user removed")
+def step_impl(context):
+    name = (By.CSS_SELECTOR, "td.col-name")
+    email = (By.CSS_SELECTOR, "td.col-email")
+    text_step = context.table
+
+    columns_name = context.browser.find_elements(*name)
+    columns_email = context.browser.find_elements(*email)
+
+    list_contains_name = [
+        x for x in columns_name if x.text.strip() == text_step["name"]
+    ]
+    assert len(list_contains_name) == 0
+
+    list_contains_email = [
+        x for x in columns_email if x.text.strip() == text_step["email"]
+    ]
+    assert len(list_contains_email) == 0

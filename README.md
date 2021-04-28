@@ -20,8 +20,8 @@
 - [x] Behave
 - [x] Selenium
 - [x] Admin
+- [x] Database
 - [ ] API
-- [ ] Database
 - [ ] Migration
 - [ ] Login
 - [ ] Forms
@@ -32,6 +32,7 @@
 - [ ] Queue
 - [ ] Dashboard
 - [ ] Cache
+- [ ] Socket
 
 
 ## Documentação ###
@@ -84,7 +85,7 @@ docker-compose up --build
 
 - Executar o teste de cobertura
 ```bash
-coverage run --source=flask_template -m pytest 
+coverage run --source=flask_template -m pytest
 ```
 
 - Gerar relatório de cobertura
@@ -146,4 +147,25 @@ behave
 - Instalar chromedriver
 ```bash
 brew cask install chromedriver
+```
+
+### Database ###
+
+Banco de dados inicializado dentro da extensão `database.py`
+
+- Caso precise excluir e criar novamente, utilize o shell no flask
+```bash
+flask shell
+```
+
+- Criar bando de dados
+```python
+from flask_template.extensions.database import db
+db.create_all()
+```
+
+- Excluir bando de dados
+```python
+from flask_template.extensions.database import db
+db.drop_all()
 ```
