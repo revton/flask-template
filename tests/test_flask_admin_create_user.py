@@ -43,10 +43,10 @@ def test_admin_user_new_without_email(test_client):
     db = app.extensions["sqlalchemy"].db
     user_without_email = User(name="Revton sem email")
     db.session.add(user_without_email)
-    db.session.commit()
-    assert "<User(name=Revton sem email, email=None)>" == repr(
-        User.query.filter_by(name="Revton sem email").first()
-    )
+    with pytest.raises(IntegrityError) as excinfo:
+        db.session.commit()
+    assert "NOT NULL" in str(excinfo.value)
+    db.session.rollback()
 
 
 def test_admin_user_new_without_data(test_client):

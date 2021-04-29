@@ -20,9 +20,9 @@
 - [x] Behave
 - [x] Selenium
 - [x] Admin
-- [x] Database
+- [x] Database (SQLite)
+- [x] Migration
 - [ ] API
-- [ ] Migration
 - [ ] Login
 - [ ] Forms
 - [ ] Mail
@@ -33,6 +33,7 @@
 - [ ] Dashboard
 - [ ] Cache
 - [ ] Socket
+- [ ] Database (PostgreSQL, MySQL, SQL Server)
 
 
 ## Documentação ###
@@ -168,4 +169,21 @@ db.create_all()
 ```python
 from flask_template.extensions.database import db
 db.drop_all()
+```
+
+### Migrate ###
+
+- Criar repositório de migração do banco de dados
+```bash
+flask db init
+```
+
+- Gerar a migração do banco de dados
+```bash
+flask db migrate -m "Initial migration."
+```
+
+- Aplicar a migração
+```bash
+flask db upgrade
 ```
