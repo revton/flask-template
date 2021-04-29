@@ -15,6 +15,10 @@ def before_all(context):
     context.server = simple_server.WSGIServer(("", 5001), WSGIRequestHandler)
     context.server.set_app(create_app(FORCE_ENV_FOR_DYNACONF="testing"))
 
+    app = context.server.get_app()
+    with app.app_context():
+        app.extensions["sqlalchemy"].db.create_all()
+
     context.thread = threading.Thread(target=context.server.serve_forever)
     context.thread.start()
 
