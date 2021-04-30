@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """Module extension Database."""
-from sqlalchemy import MetaData
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
-
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import MetaData
 
 convention = {
     "ix": "ix_%(column_0_label)s",
@@ -23,7 +22,7 @@ migrate = Migrate()
 def init_app(app: Flask):
     """Extension SQLAlchemy and Migrate Application Factory."""
     # Import database model
-    from flask_template.model import User  # noqa
+    from flask_template.model import Parameter, User  # noqa
 
     db.init_app(app)
     migrate.init_app(app, db, render_as_batch=True)

@@ -3,6 +3,7 @@ import json
 
 import pytest
 from flask.testing import FlaskClient
+from flask_migrate import upgrade
 
 from flask_template.app import create_app
 
@@ -24,5 +25,6 @@ def test_client():
     app.test_client_class = TestClient
     with app.test_client() as testing_client:
         with app.app_context():
+            app.extensions["sqlalchemy"].db.create_all()
             yield testing_client
             app.extensions["sqlalchemy"].db.drop_all()

@@ -8,20 +8,26 @@ SQLALCHEMY_TRACK_MODIFICATIONS = false
 EXTENSIONS = [
     "flask_debugtoolbar:DebugToolbarExtension",
     "flask_template.extensions.database:init_app",
-    "flask_template.extensions.admin:init_app"
+    "flask_template.extensions.admin:init_app",
+    "flask_template.extensions.serializer:init_app",
+    "flask_template.blueprints.restapi:init_app"
 ]
 SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/dev.db"
 
 [production]
 EXTENSIONS = [
     "flask_template.extensions.database:init_app",
-    "flask_template.extensions.admin:init_app"
+    "flask_template.extensions.admin:init_app",
+    "flask_template.extensions.serializer:init_app",
+    "flask_template.blueprints.restapi:init_app"
 ]
 SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/prod.db"
 
 [testing]
 EXTENSIONS = [
     "flask_template.extensions.database:init_app",
-    "flask_template.extensions.admin:init_app"
+    "flask_template.extensions.admin:init_app",
+    "flask_template.extensions.serializer:init_app",
+    "flask_template.blueprints.restapi:init_app"
 ]
 SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/test.db"

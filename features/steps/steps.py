@@ -44,7 +44,7 @@ def step_impl(context):
 
 @when("click in link to edit user")
 def step_impl(context):
-    context.browser.current_url == "http://127.0.0.1:5001/admin/user/"
+    assert context.browser.current_url == "http://127.0.0.1:5001/admin/user/"
     # TODO: Check if row is in context.text
     link_edit = context.browser.find_element_by_xpath(
         "//*[@id='no-more-tables']/table/tbody/tr/td[2]/a"
@@ -69,7 +69,7 @@ def step_impl(context):
 
 @when("click in button to remove user")
 def step_impl(context):
-    context.browser.current_url == "http://127.0.0.1:5001/admin/user/"
+    assert context.browser.current_url == "http://127.0.0.1:5001/admin/user/"
 
     table = (
         By.CLASS_NAME,

@@ -23,6 +23,9 @@ dynaconf = "^3.1.4"
 Flask-Admin = "^1.5.8"
 Flask-SQLAlchemy = "^2.5.1"
 Flask-Migrate = "^2.7.0"
+flask-restx = "^0.3.0"
+flask-marshmallow = "^0.14.0"
+marshmallow-sqlalchemy = "^0.24.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
