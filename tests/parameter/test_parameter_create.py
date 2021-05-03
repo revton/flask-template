@@ -2,7 +2,7 @@
 from flask import url_for
 
 
-def test_paramter_create_without_data(test_client):
+def test_parameter_create_without_data(test_client):
     data = {}
     response = test_client.post_json(url=url_for("api.parameter"), data=data)
     assert response.status_code == 400
@@ -16,7 +16,7 @@ def test_paramter_create_without_data(test_client):
     )
 
 
-def test_paramter_create_without_value(test_client):
+def test_parameter_create_without_value(test_client):
     data = {"name": "project-name"}
     expected_response = {
         "message": "{'value': ['Missing data for required field.']}"
@@ -26,7 +26,7 @@ def test_paramter_create_without_value(test_client):
     assert response.json == expected_response
 
 
-def test_paramter_create_without_name(test_client):
+def test_parameter_create_without_name(test_client):
     data = {"value": "Flask Template"}
     expected_response = {
         "message": "{'name': ['Missing data for required field.']}"

@@ -12,3 +12,8 @@ def create(parameter: Parameter):
     except Exception as ex:
         db.session.rollback()
         raise ex
+
+
+def list():
+    """List parameters"""
+    return Parameter.query.all()

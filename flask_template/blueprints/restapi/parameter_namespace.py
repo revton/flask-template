@@ -14,8 +14,8 @@ ns_parameter = Namespace(
 
 
 @ns_parameter.route("/", endpoint="parameter")
-class ParameterResource(Resource):
-    """Routes to manager parameters."""
+class ParameterCreateAndList(Resource):
+    """Routes to create and list parameters."""
 
     def post(self):
         """Create parameter."""
@@ -28,3 +28,9 @@ class ParameterResource(Resource):
         except IntegrityError as error:
             self.api.abort(400, error.args[0])
         return parameter_schema.dump(parameter), 201
+
+    def get(self):
+        """List parameters"""
+        parameter_schema = ParameterSchema(many=True)
+        parameters = parameter_business.list()
+        return parameter_schema.dump(parameters), 200

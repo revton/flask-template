@@ -3,7 +3,6 @@ import json
 
 import pytest
 from flask.testing import FlaskClient
-from flask_migrate import upgrade
 
 from flask_template.app import create_app
 
@@ -13,6 +12,14 @@ class TestClient(FlaskClient):
         response = self.post(
             url,
             data=json.dumps(data),
+            headers={"content-type": "application/json"},
+            follow_redirects=follow_redirects,
+        )
+        return response
+
+    def get_json(self, url, follow_redirects=False):
+        response = self.get(
+            url,
             headers={"content-type": "application/json"},
             follow_redirects=follow_redirects,
         )
