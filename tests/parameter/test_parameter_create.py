@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import url_for
+from flask import request, url_for
 
 
 def test_parameter_create_without_data(test_client):
@@ -46,6 +46,9 @@ def test_parameter_create_new(test_client):
     response = test_client.post_json(url=url_for("api.parameter"), data=data)
     assert response.status_code == 201
     assert response.json == expected_response
+    assert response.headers.get("Location") == request.url_root[:-1] + url_for(
+        "api.parameter_by_id", identifier=response.json["id"]
+    )
 
 
 def test_parameter_create_unique_name(test_client):

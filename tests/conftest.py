@@ -25,6 +25,14 @@ class TestClient(FlaskClient):
         )
         return response
 
+    def delete_json(self, url, follow_redirects=False):
+        response = self.delete(
+            url,
+            headers={"content-type": "application/json"},
+            follow_redirects=follow_redirects,
+        )
+        return response
+
 
 @pytest.fixture(scope="session")
 def test_client():

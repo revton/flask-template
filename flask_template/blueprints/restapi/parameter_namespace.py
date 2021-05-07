@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Parameter namespace."""
-from flask import request
+from flask import request, url_for
 from flask_restx import Namespace, Resource
 from marshmallow.exceptions import ValidationError
 from sqlalchemy.exc import IntegrityError, NoResultFound
@@ -18,7 +18,7 @@ class ParameterCreateAndList(Resource):
     """Routes to create and list parameters."""
 
     def post(self):
-        """Create parameter."""
+        """Create a parameter."""
         parameter_schema = ParameterSchema()
         try:
             parameter = parameter_schema.load(request.json)
@@ -28,10 +28,18 @@ class ParameterCreateAndList(Resource):
         except IntegrityError as error:
             self.api.abort(400, error.args[0])
         else:
-            return parameter_schema.dump(parameter), 201
+            return (
+                parameter_schema.dump(parameter),
+                201,
+                {
+                    "location": url_for(
+                        "api.parameter_by_id", identifier=parameter.id
+                    )
+                },
+            )
 
     def get(self):
-        """List parameters"""
+        """List all parameters."""
         parameter_schema = ParameterSchema(many=True)
         parameters = parameter_business.list_all()
         return parameter_schema.dump(parameters), 200
@@ -39,10 +47,10 @@ class ParameterCreateAndList(Resource):
 
 @ns_parameter.route("/<int:identifier>", endpoint="parameter_by_id")
 class ParameterGetAndUpdate(Resource):
-    """Route to get and update parameter."""
+    """Route to get, update and delete parameter given its identifier."""
 
     def get(self, identifier):
-        """Get parameter by id."""
+        """Get a parameter given its identifier."""
         parameter = parameter_business.get_by_id(identifier=identifier)
         if parameter:
             parameter_schema = ParameterSchema()
@@ -51,7 +59,7 @@ class ParameterGetAndUpdate(Resource):
             self.api.abort(404, "Parâmetro não encontrado.")
 
     def post(self, identifier):
-        """Update parameter by id."""
+        """Update a parameter given its identifier."""
         try:
             parameter_schema = ParameterSchema()
             parameter_schema.load(request.json)
@@ -66,3 +74,11 @@ class ParameterGetAndUpdate(Resource):
             self.api.abort(400, error.args[0])
         else:
             return parameter_schema.dump(parameter_update)
+
+    def delete(self, identifier):
+        """Delete a parameter given its identifier."""
+        try:
+            parameter_business.delete_by_id(identifier=identifier)
+        except NoResultFound as error:
+            self.api.abort(404, error.args[0])
+        return "", 204

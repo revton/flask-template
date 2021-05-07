@@ -11,7 +11,10 @@ from flask_template.app import create_app
 
 
 def before_all(context):
-    """ Setup to create flask application and start simple_server and setup Chrome Browser."""
+    """Setup to create flask application
+    and start simple_server
+    and setup Chrome Browser.
+    """
     context.server = simple_server.WSGIServer(("", 5001), WSGIRequestHandler)
     context.server.set_app(create_app(FORCE_ENV_FOR_DYNACONF="testing"))
 
