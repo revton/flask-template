@@ -17,7 +17,7 @@ def test_parameter_delete_ok(test_client):
         "name": "param-name",
         "value": "param-value",
     }
-    response = test_client.post_json(url=url_for("api.parameter"), data=data)
+    response = test_client.post_json(url=url_for("api.parameters"), data=data)
     assert response.status_code == 201
     assert response.json == expected_response
 

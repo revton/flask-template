@@ -9,11 +9,11 @@ from flask_template.business import parameter_business
 from flask_template.schema import ParameterSchema
 
 ns_parameter = Namespace(
-    "parameter", description="Routes to manager parameters"
+    "parameters", description="Routes to manager parameters"
 )
 
 
-@ns_parameter.route("/", endpoint="parameter")
+@ns_parameter.route("/", endpoint="parameters")
 class ParameterCreateAndList(Resource):
     """Routes to create and list parameters."""
 
@@ -58,7 +58,7 @@ class ParameterGetAndUpdate(Resource):
         else:
             self.api.abort(404, "Parâmetro não encontrado.")
 
-    def post(self, identifier):
+    def put(self, identifier):
         """Update a parameter given its identifier."""
         try:
             parameter_schema = ParameterSchema()
@@ -82,3 +82,20 @@ class ParameterGetAndUpdate(Resource):
         except NoResultFound as error:
             self.api.abort(404, error.args[0])
         return "", 204
+
+    def patch(self, identifier):
+        """Partially updates a parameter given its identifier."""
+        try:
+            parameter_schema = ParameterSchema()
+            parameter_schema.load(request.json, partial=True)
+            parameter_update = parameter_business.update(
+                identifier, request.json
+            )
+        except ValidationError as error:
+            self.api.abort(400, error.messages)
+        except NoResultFound as error:
+            self.api.abort(404, error.args[0])
+        except IntegrityError as error:
+            self.api.abort(400, error.args[0])
+        else:
+            return parameter_schema.dump(parameter_update)

@@ -33,6 +33,24 @@ class TestClient(FlaskClient):
         )
         return response
 
+    def put_json(self, url, data, follow_redirects=False):
+        response = self.put(
+            url,
+            data=json.dumps(data),
+            headers={"content-type": "application/json"},
+            follow_redirects=follow_redirects,
+        )
+        return response
+
+    def patch_json(self, url, data, follow_redirects=False):
+        response = self.patch(
+            url,
+            data=json.dumps(data),
+            headers={"content-type": "application/json"},
+            follow_redirects=follow_redirects,
+        )
+        return response
+
 
 @pytest.fixture(scope="session")
 def test_client():

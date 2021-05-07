@@ -3,7 +3,7 @@ from flask import url_for
 
 
 def test_parameter_get_all(test_client):
-    response = test_client.get_json(url=url_for("api.parameter"))
+    response = test_client.get_json(url=url_for("api.parameters"))
     assert response.status_code == 200
     assert response.json == [
         {"id": 1, "name": "project-name", "value": "Flask Template"}

@@ -4,6 +4,8 @@ APPLICATION_NAME = "FLASK-TEMPLATE"
 
 SQLALCHEMY_TRACK_MODIFICATIONS = false
 
+RESTX_ERROR_404_HELP = false
+
 [development]
 EXTENSIONS = [
     "flask_debugtoolbar:DebugToolbarExtension",

@@ -70,6 +70,11 @@ poetry run pytest
 poetry export -f requirements.txt --output requirements.txt
 ```
 
+- Atualizando o pip do virtualenv
+```bash
+poetry run pip install --upgrade pip
+```
+
 ### Safety ###
 ```bash
 safety check
