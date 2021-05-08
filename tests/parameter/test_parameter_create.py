@@ -54,7 +54,7 @@ def test_parameter_create_new(test_client):
 def test_parameter_create_unique_name(test_client):
     data = {"name": "project-name", "value": "Flask Template"}
     response = test_client.post_json(url=url_for("api.parameters"), data=data)
-    assert response.status_code == 400
+    assert response.status_code == 422
     assert "UNIQUE constraint failed: parameter.name" in str(
         response.json["message"]
     )

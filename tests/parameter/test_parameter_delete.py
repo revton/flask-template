@@ -2,7 +2,7 @@
 from flask import url_for
 
 
-def test_paramter_delete_without_id(test_client):
+def test_parameter_delete_without_id(test_client):
     response = test_client.delete_json(
         url=url_for("api.parameter_by_id", identifier=999)
     )

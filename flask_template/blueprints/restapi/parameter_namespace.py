@@ -26,7 +26,7 @@ class ParameterCreateAndList(Resource):
         except ValidationError as error:
             self.api.abort(400, error.messages)
         except IntegrityError as error:
-            self.api.abort(400, error.args[0])
+            self.api.abort(422, error.args[0])
         else:
             return (
                 parameter_schema.dump(parameter),
@@ -71,7 +71,7 @@ class ParameterGetAndUpdate(Resource):
         except NoResultFound as error:
             self.api.abort(404, error.args[0])
         except IntegrityError as error:
-            self.api.abort(400, error.args[0])
+            self.api.abort(422, error.args[0])
         else:
             return parameter_schema.dump(parameter_update)
 
@@ -96,6 +96,6 @@ class ParameterGetAndUpdate(Resource):
         except NoResultFound as error:
             self.api.abort(404, error.args[0])
         except IntegrityError as error:
-            self.api.abort(400, error.args[0])
+            self.api.abort(422, error.args[0])
         else:
             return parameter_schema.dump(parameter_update)

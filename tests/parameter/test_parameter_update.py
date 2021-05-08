@@ -84,7 +84,7 @@ def test_parameter_update_where_name_already_exists(test_client):
     response = test_client.put_json(
         url=url_for("api.parameter_by_id", identifier=2), data=data_exists
     )
-    assert response.status_code == 400
+    assert response.status_code == 422
     assert "UNIQUE constraint failed: parameter.name" in str(
         response.json["message"]
     )
@@ -163,3 +163,26 @@ def test_parameter_update_only_name(test_client):
     )
     assert response.status_code == 200
     assert response.json == expected_update_response
+
+
+def test_parameter_update_only_name_where_name_already_exists(test_client):
+    data_new = {"name": "parameter_1", "value": "value_1"}
+    expected_created_response = {
+        "id": 3,
+        "name": "parameter_1",
+        "value": "value_1",
+    }
+    response = test_client.post_json(
+        url=url_for("api.parameters"), data=data_new
+    )
+    assert response.status_code == 201
+    assert response.json == expected_created_response
+
+    data_exists = {"name": "project-name update"}
+    response = test_client.patch_json(
+        url=url_for("api.parameter_by_id", identifier=2), data=data_exists
+    )
+    assert response.status_code == 422
+    assert "UNIQUE constraint failed: parameter.name" in str(
+        response.json["message"]
+    )
