@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Parameter namespace."""
 from flask import request, url_for
-from flask_restx import Namespace, Resource
+from flask_restx import Namespace, Resource, fields
 from marshmallow.exceptions import ValidationError
 from sqlalchemy.exc import IntegrityError, NoResultFound
 
@@ -12,11 +12,44 @@ ns_parameter = Namespace(
     "parameters", description="Routes to manager parameters"
 )
 
+parameter_model = ns_parameter.model(
+    "Parameter",
+    {
+        "name": fields.String(required=True, unique=True),
+        "value": fields.String(required=True),
+    },
+)
+
+parameter_response_model = ns_parameter.model(
+    "ParameterResponse",
+    {
+        "id": fields.Integer(),
+        "name": fields.String(required=True, unique=True),
+        "value": fields.String(required=True),
+    },
+)
+
+error_model = ns_parameter.model("Error", {"message": fields.String()})
+
 
 @ns_parameter.route("/", endpoint="parameters")
 class ParameterCreateAndList(Resource):
     """Routes to create and list parameters."""
 
+    # @ns_parameter.marshal_with(
+    #     parameter_response_model, code=201, description="Parâmetro criado"
+    # )
+    # @ns_parameter.marshal_with(
+    #     error_model, code=400, description="Error"
+    # )
+    @ns_parameter.expect(parameter_model)
+    @ns_parameter.response(
+        code=201,
+        model=parameter_response_model,
+        description="Parâmetro criado",
+    )
+    @ns_parameter.response(code=400, model=error_model, description="Erro")
+    @ns_parameter.response(code=422, model=error_model, description="Erro")
     def post(self):
         """Create a parameter."""
         parameter_schema = ParameterSchema()
@@ -26,7 +59,7 @@ class ParameterCreateAndList(Resource):
         except ValidationError as error:
             self.api.abort(400, error.messages)
         except IntegrityError as error:
-            self.api.abort(422, error.args[0])
+            self.api.abort(422, error.orig.args[0])
         else:
             return (
                 parameter_schema.dump(parameter),
