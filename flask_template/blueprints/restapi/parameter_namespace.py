@@ -20,12 +20,17 @@ parameter_model = ns_parameter.model(
     },
 )
 
+links_response_model = ns_parameter.model(
+    "LinksResponse", {"self": fields.String(), "collection": fields.String()}
+)
+
 parameter_response_model = ns_parameter.model(
     "ParameterResponse",
     {
         "id": fields.Integer(),
         "name": fields.String(required=True, unique=True),
         "value": fields.String(required=True),
+        "_links": fields.Nested(links_response_model),
     },
 )
 
@@ -36,12 +41,6 @@ error_model = ns_parameter.model("Error", {"message": fields.String()})
 class ParameterCreateAndList(Resource):
     """Routes to create and list parameters."""
 
-    # @ns_parameter.marshal_with(
-    #     parameter_response_model, code=201, description="Parâmetro criado"
-    # )
-    # @ns_parameter.marshal_with(
-    #     error_model, code=400, description="Error"
-    # )
     @ns_parameter.expect(parameter_model)
     @ns_parameter.response(
         code=201,
@@ -91,6 +90,14 @@ class ParameterGetAndUpdate(Resource):
         else:
             self.api.abort(404, "Parâmetro não encontrado.")
 
+    @ns_parameter.expect(parameter_model)
+    @ns_parameter.response(
+        code=200,
+        model=parameter_response_model,
+        description="Parâmetro alterado",
+    )
+    @ns_parameter.response(code=400, model=error_model, description="Erro")
+    @ns_parameter.response(code=422, model=error_model, description="Erro")
     def put(self, identifier):
         """Update a parameter given its identifier."""
         try:
@@ -104,7 +111,7 @@ class ParameterGetAndUpdate(Resource):
         except NoResultFound as error:
             self.api.abort(404, error.args[0])
         except IntegrityError as error:
-            self.api.abort(422, error.args[0])
+            self.api.abort(422, error.orig.args[0])
         else:
             return parameter_schema.dump(parameter_update)
 

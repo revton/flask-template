@@ -1,4 +1,4 @@
-Feature: Parameter in Swagger-UI
+Feature: Create Parameter in Swagger-UI
 
   Scenario: Create a new parameter
     Given open the page swagger-ui
@@ -14,7 +14,11 @@ Feature: Parameter in Swagger-UI
       {
         "id": 1,
         "name": "Parameter-Name",
-        "value": "Parameter-Value"
+        "value": "Parameter-Value",
+        "_links": {
+            "self": "/api/v1/parameters/1",
+            "collection": "/api/v1/parameters/"
+        }
       }
     """
 

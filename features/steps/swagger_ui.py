@@ -9,21 +9,21 @@ from selenium.webdriver.common.by import By
 from flask_template.utils.json_utils import ordered
 
 
-@given(u"open the page swagger-ui")
-def step_impl(context):
+@given("open the page swagger-ui")
+def step_impl(context):  # noqa
     context.browser.get("http://127.0.0.1:5001/api/v1/")
 
 
-@when(u"execute GET /parameters/")
-def step_impl(context):
+@when("execute GET /parameters/")
+def step_impl(context):  # noqa
     _execute_request_swagger(
         context,
         div_operation="operations-parameters-get_parameter_create_and_list",
     )
 
 
-@when(u"execute POST /parameters/")
-def step_impl(context):
+@when("execute POST /parameters/")
+def step_impl(context):  # noqa
     _execute_request_swagger(
         context,
         div_operation="operations-parameters-post_parameter_create_and_list",
@@ -31,8 +31,19 @@ def step_impl(context):
     )
 
 
-@then(u"return json valid of GET /parameters/")
-def step_impl(context):
+@when("execute PUT /parameters/{identifier}")
+def step_impl(context, identifier):  # noqa
+    _execute_request_swagger(
+        context,
+        div_operation="operations-parameters-put_parameter_get_and_update",
+        has_payload=True,
+        table_operation="parameters",
+        table_values={"identifier": identifier},
+    )
+
+
+@then("return json valid of GET /parameters/")
+def step_impl(context):  # noqa
     _assert_response_swagger(
         context,
         div_operation="operations-parameters-get_parameter_create_and_list",
@@ -40,8 +51,8 @@ def step_impl(context):
     )
 
 
-@then(u"return json valid of POST /parameters/")
-def step_impl(context):
+@then("return json valid of POST /parameters/")
+def step_impl(context):  # noqa
     _assert_response_swagger(
         context,
         div_operation="operations-parameters-post_parameter_create_and_list",
@@ -50,9 +61,10 @@ def step_impl(context):
 
 
 @then(
-    u"return json error message with status code {status_code} of POST /parameters/"
+    "return json error message with status code {status_code} "
+    "of POST /parameters/"
 )
-def step_impl(context, status_code):
+def step_impl(context, status_code):  # noqa
     _assert_response_swagger(
         context,
         div_operation="operations-parameters-post_parameter_create_and_list",
@@ -60,26 +72,77 @@ def step_impl(context, status_code):
     )
 
 
+@then(
+    "return json error message with status code {status_code} "
+    "of PUT /parameters/{identifier}"
+)
+def step_impl(context, status_code, identifier):  # noqa
+    _assert_response_swagger(
+        context,
+        div_operation="operations-parameters-put_parameter_get_and_update",
+        status_code=int(status_code),
+    )
+
+
+@then("return json valid of POST /parameters/{identifier}")
+def step_impl(context, identifier):  # noqa
+    _assert_response_swagger(
+        context,
+        div_operation="operations-parameters-put_parameter_get_and_update",
+        status_code=200,
+    )
+
+
 def _execute_request_swagger(
-    context, div_operation: str, has_payload: bool = False
+    context,
+    div_operation: str,
+    has_payload: bool = False,
+    table_operation: str = None,
+    table_values: dict = {},
 ):
     time.sleep(2)
-    div_post_parameter = context.browser.find_element_by_id(div_operation)
-    div_post_parameter.click()
+    div_element_operation = context.browser.find_element_by_id(div_operation)
+    div_element_operation.click()
     time.sleep(2)
 
     class_try_out = (By.CLASS_NAME, "try-out__btn")
-    btn_try_out = div_post_parameter.find_element(*class_try_out)
+    btn_try_out = div_element_operation.find_element(*class_try_out)
     btn_try_out.click()
 
     if has_payload:
+        time.sleep(2)
         class_payload = (By.CLASS_NAME, "body-param__text")
-        text_payload = div_post_parameter.find_element(*class_payload)
+        text_payload = div_element_operation.find_element(*class_payload)
         text_payload.clear()
         text_payload.send_keys(str(context.text))
 
+    if table_operation:
+        time.sleep(2)
+        class_parameters = (By.CLASS_NAME, table_operation)
+        table_parameters = div_element_operation.find_element(
+            *class_parameters
+        )
+
+        tag_tbody = (By.TAG_NAME, "tbody")
+        tbody_parameters = table_parameters.find_element(*tag_tbody)
+
+        for key, value in table_values.items():
+            tr_identifier = tbody_parameters.find_element_by_xpath(
+                f"//tr[@data-param-name='{key}']"
+            )
+            class_td_description = (
+                By.CLASS_NAME,
+                "parameters-col_description",
+            )
+            td_description = tr_identifier.find_element(*class_td_description)
+
+            tag_input = (By.TAG_NAME, "input")
+            input_identifier = td_description.find_element(*tag_input)
+            input_identifier.clear()
+            input_identifier.send_keys(str(value))
+
     class_execute = (By.CLASS_NAME, "execute")
-    btn_execute = div_post_parameter.find_element(*class_execute)
+    btn_execute = div_element_operation.find_element(*class_execute)
     btn_execute.click()
 
 

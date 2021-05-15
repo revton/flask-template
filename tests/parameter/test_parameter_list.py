@@ -6,7 +6,15 @@ def test_parameter_get_all(test_client):
     response = test_client.get_json(url=url_for("api.parameters"))
     assert response.status_code == 200
     assert response.json == [
-        {"id": 1, "name": "project-name", "value": "Flask Template"}
+        {
+            "id": 1,
+            "name": "project-name",
+            "value": "Flask Template",
+            "_links": {
+                "self": "/api/v1/parameters/1",
+                "collection": "/api/v1/parameters/",
+            },
+        }
     ]
 
 
@@ -27,4 +35,8 @@ def test_parameter_get_by_id_exist(test_client):
         "id": 1,
         "name": "project-name",
         "value": "Flask Template",
+        "_links": {
+            "self": "/api/v1/parameters/1",
+            "collection": "/api/v1/parameters/",
+        },
     }

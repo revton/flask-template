@@ -42,3 +42,21 @@ def test_json_utils_complex_diff_ordered():
         ],
     }
     assert ordered(dict_1) == ordered(dict_2)
+
+
+# TODO: Fazer acerto para esse tipo de ordenação
+#  onde o valor é uma string contendo um dicionario desordenado
+# def test_json_utils_complex_2_diff_ordered():
+#     dict_1 = {
+#         "message": "{"
+#         "'value': ['Missing data for required field.'], "
+#         "'name': ['Missing data for required field.']"
+#         "}",
+#     }
+#     dict_2 = {
+#         "message": "{"
+#         "'name': ['Missing data for required field.'], "
+#         "'value': ['Missing data for required field.']"
+#         "}",
+#     }
+#     assert ordered(dict_1) == ordered(dict_2)

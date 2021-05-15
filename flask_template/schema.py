@@ -11,6 +11,15 @@ class ParameterSchema(ma.SQLAlchemyAutoSchema):
         model = Parameter
         load_instance = True
 
+    _links = ma.Hyperlinks(
+        {
+            "self": ma.URLFor(
+                "api.parameter_by_id", values=dict(identifier="<id>")
+            ),
+            "collection": ma.URLFor("api.parameters"),
+        }
+    )
+
     @validates("name")
     def validate_empty_name(self, value):
         if not value:

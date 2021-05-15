@@ -61,6 +61,10 @@ def test_parameter_update_where_id_exists(test_client):
         "id": 1,
         "name": "project-name update",
         "value": "Flask Template update",
+        "_links": {
+            "self": "/api/v1/parameters/1",
+            "collection": "/api/v1/parameters/",
+        },
     }
 
 
@@ -70,6 +74,10 @@ def test_parameter_update_where_name_already_exists(test_client):
         "id": 2,
         "name": "parameter_1",
         "value": "value_1",
+        "_links": {
+            "self": "/api/v1/parameters/2",
+            "collection": "/api/v1/parameters/",
+        },
     }
     response = test_client.post_json(
         url=url_for("api.parameters"), data=data_new
@@ -141,6 +149,10 @@ def test_parameter_update_only_value(test_client):
         "id": 2,
         "name": "parameter_1",
         "value": "Flask Template update only value",
+        "_links": {
+            "self": "/api/v1/parameters/2",
+            "collection": "/api/v1/parameters/",
+        },
     }
 
     response = test_client.patch_json(
@@ -156,6 +168,10 @@ def test_parameter_update_only_name(test_client):
         "id": 2,
         "name": "Flask Template parameter only value",
         "value": "Flask Template update only value",
+        "_links": {
+            "self": "/api/v1/parameters/2",
+            "collection": "/api/v1/parameters/",
+        },
     }
 
     response = test_client.patch_json(
@@ -171,6 +187,10 @@ def test_parameter_update_only_name_where_name_already_exists(test_client):
         "id": 3,
         "name": "parameter_1",
         "value": "value_1",
+        "_links": {
+            "self": "/api/v1/parameters/3",
+            "collection": "/api/v1/parameters/",
+        },
     }
     response = test_client.post_json(
         url=url_for("api.parameters"), data=data_new

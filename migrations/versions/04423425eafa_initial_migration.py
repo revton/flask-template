@@ -1,7 +1,7 @@
 """Initial migration.
 
 Revision ID: 04423425eafa
-Revises: 
+Revises: # noqa
 Create Date: 2021-04-28 18:06:17.488387
 
 """

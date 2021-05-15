@@ -16,6 +16,10 @@ def test_parameter_delete_ok(test_client):
         "id": 2,
         "name": "param-name",
         "value": "param-value",
+        "_links": {
+            "self": "/api/v1/parameters/2",
+            "collection": "/api/v1/parameters/",
+        },
     }
     response = test_client.post_json(url=url_for("api.parameters"), data=data)
     assert response.status_code == 201

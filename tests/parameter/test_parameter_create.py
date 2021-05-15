@@ -42,6 +42,10 @@ def test_parameter_create_new(test_client):
         "id": 1,
         "name": "project-name",
         "value": "Flask Template",
+        "_links": {
+            "self": "/api/v1/parameters/1",
+            "collection": "/api/v1/parameters/",
+        },
     }
     response = test_client.post_json(url=url_for("api.parameters"), data=data)
     assert response.status_code == 201
