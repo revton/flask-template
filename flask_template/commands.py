@@ -48,7 +48,7 @@ def radon():
     """Check Cyclomatic Complexity and Halstead metrics."""
     files_and_directories = _files_and_directories()
     # Cyclomatic Complexity
-    radon_cc_args = ["cc", "-a", "-s", "-na"]
+    radon_cc_args = ["cc", "-a", "-s", "-nb"]
     _execute_tool(
         "Checking cyclomatic complexity",
         files_and_directories,
@@ -69,7 +69,9 @@ def radon():
 def safety():
     """Check your installed dependencies for known security vulnerabilitie."""
     safety_args = ["check"]
-    _execute_tool("Checking installed dependencies", [], "safety", *safety_args)
+    _execute_tool(
+        "Checking installed dependencies", [], "safety", *safety_args
+    )
 
 
 @click.command()

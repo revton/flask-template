@@ -19,7 +19,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     container_name: app
-    command: gunicorn --bind 0.0.0.0:5000 wsgi:app
+    command: gunicorn  wsgi:app --preload -b 0.0.0.0:5000
     volumes:
       - ./:/app
     networks:
