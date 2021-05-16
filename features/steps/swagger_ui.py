@@ -53,6 +53,16 @@ def step_impl(context, identifier):  # noqa
     )
 
 
+@when("execute DELETE /parameters/{identifier}")
+def step_impl(context, identifier):  # noqa
+    _execute_request_swagger(
+        context,
+        div_operation="operations-parameters-delete_parameter_get_and_update",
+        table_operation="parameters",
+        table_values={"identifier": identifier},
+    )
+
+
 @then("return json valid of GET /parameters/")
 def step_impl(context):  # noqa
     _assert_response_swagger(
@@ -125,6 +135,27 @@ def step_impl(context, status_code, identifier):  # noqa
     )
 
 
+@then(
+    "return json error message with status code {status_code} "
+    "of DELETE /parameters/{identifier}"
+)
+def step_impl(context, status_code, identifier):  # noqa
+    _assert_response_swagger(
+        context,
+        div_operation="operations-parameters-delete_parameter_get_and_update",
+        status_code=int(status_code),
+    )
+
+
+@then("return status code {status_code} of DELETE /parameters/{identifier}")
+def step_impl(context, status_code, identifier):  # noqa
+    _assert_response_swagger(
+        context,
+        div_operation="operations-parameters-delete_parameter_get_and_update",
+        status_code=int(status_code),
+    )
+
+
 def _execute_request_swagger(
     context,
     div_operation: str,
@@ -189,12 +220,16 @@ def _assert_response_swagger(context, div_operation: str, status_code: int):
     td_col_status = tr_response.find_element(*class_col_status)
     assert td_col_status.text == str(status_code)
 
-    class_col_description = (By.CLASS_NAME, "response-col_description")
-    td_col_description = tr_response.find_element(*class_col_description)
+    # When status code is 204 - No Content have not response description
+    if status_code != 204:
+        class_col_description = (By.CLASS_NAME, "response-col_description")
+        td_col_description = tr_response.find_element(*class_col_description)
 
-    class_language_json = (By.CLASS_NAME, "language-json")
-    code_language_json = td_col_description.find_element(*class_language_json)
+        class_language_json = (By.CLASS_NAME, "language-json")
+        code_language_json = td_col_description.find_element(
+            *class_language_json
+        )
 
-    assert ordered(loads(context.text)) == ordered(
-        loads(code_language_json.text)
-    )
+        assert ordered(loads(context.text)) == ordered(
+            loads(code_language_json.text)
+        )

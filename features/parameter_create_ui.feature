@@ -22,6 +22,28 @@ Feature: Create Parameter in Swagger-UI
       }
     """
 
+  Scenario: Create another new parameter
+    Given open the page swagger-ui
+    When execute POST /parameters/
+    """
+      {
+        "name": "Parameter-Name to be delete",
+        "value": "Parameter-Value to be delete"
+      }
+    """
+    Then return json valid of POST /parameters/
+    """
+      {
+        "id": 2,
+        "name": "Parameter-Name to be delete",
+        "value": "Parameter-Value to be delete",
+        "_links": {
+            "self": "/api/v1/parameters/2",
+            "collection": "/api/v1/parameters/"
+        }
+      }
+    """
+
   Scenario: Create new parameter without data
     Given open the page swagger-ui
     When execute POST /parameters/
