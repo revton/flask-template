@@ -63,6 +63,16 @@ def step_impl(context, identifier):  # noqa
     )
 
 
+@when("execute GET /parameters/{identifier}")
+def step_impl(context, identifier):  # noqa
+    _execute_request_swagger(
+        context,
+        div_operation="operations-parameters-get_parameter_get_and_update",
+        table_operation="parameters",
+        table_values={"identifier": identifier},
+    )
+
+
 @then("return json valid of GET /parameters/")
 def step_impl(context):  # noqa
     _assert_response_swagger(
@@ -153,6 +163,27 @@ def step_impl(context, status_code, identifier):  # noqa
         context,
         div_operation="operations-parameters-delete_parameter_get_and_update",
         status_code=int(status_code),
+    )
+
+
+@then(
+    "return json error message with status code {status_code} "
+    "of GET /parameters/{identifier}"
+)
+def step_impl(context, status_code, identifier):  # noqa
+    _assert_response_swagger(
+        context,
+        div_operation="operations-parameters-get_parameter_get_and_update",
+        status_code=int(status_code),
+    )
+
+
+@then("return json valid of GET /parameters/{identifier}")
+def step_impl(context, identifier):  # noqa
+    _assert_response_swagger(
+        context,
+        div_operation="operations-parameters-get_parameter_get_and_update",
+        status_code=200,
     )
 
 

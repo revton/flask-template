@@ -81,6 +81,12 @@ class ParameterCreateAndList(Resource):
 class ParameterGetAndUpdate(Resource):
     """Route to get, update and delete parameter given its identifier."""
 
+    @ns_parameter.response(
+        code=200,
+        model=parameter_response_model,
+        description="Parâmetro alterado",
+    )
+    @ns_parameter.response(code=404, model=error_model, description="Erro")
     def get(self, identifier):
         """Get a parameter given its identifier."""
         parameter = parameter_business.get_by_id(identifier=identifier)
