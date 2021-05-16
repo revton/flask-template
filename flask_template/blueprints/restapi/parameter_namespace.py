@@ -98,6 +98,7 @@ class ParameterGetAndUpdate(Resource):
     )
     @ns_parameter.response(code=400, model=error_model, description="Erro")
     @ns_parameter.response(code=422, model=error_model, description="Erro")
+    @ns_parameter.response(code=404, model=error_model, description="Erro")
     def put(self, identifier):
         """Update a parameter given its identifier."""
         try:
@@ -115,6 +116,11 @@ class ParameterGetAndUpdate(Resource):
         else:
             return parameter_schema.dump(parameter_update)
 
+    @ns_parameter.response(
+        code=204,
+        description="Parâmetro excluído",
+    )
+    @ns_parameter.response(code=404, model=error_model, description="Erro")
     def delete(self, identifier):
         """Delete a parameter given its identifier."""
         try:
@@ -123,6 +129,15 @@ class ParameterGetAndUpdate(Resource):
             self.api.abort(404, error.args[0])
         return "", 204
 
+    @ns_parameter.expect(parameter_model)
+    @ns_parameter.response(
+        code=200,
+        model=parameter_response_model,
+        description="Parâmetro alterado",
+    )
+    @ns_parameter.response(code=400, model=error_model, description="Erro")
+    @ns_parameter.response(code=422, model=error_model, description="Erro")
+    @ns_parameter.response(code=404, model=error_model, description="Erro")
     def patch(self, identifier):
         """Partially updates a parameter given its identifier."""
         try:

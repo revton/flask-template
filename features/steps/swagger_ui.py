@@ -42,6 +42,17 @@ def step_impl(context, identifier):  # noqa
     )
 
 
+@when("execute PATCH /parameters/{identifier}")
+def step_impl(context, identifier):  # noqa
+    _execute_request_swagger(
+        context,
+        div_operation="operations-parameters-patch_parameter_get_and_update",
+        has_payload=True,
+        table_operation="parameters",
+        table_values={"identifier": identifier},
+    )
+
+
 @then("return json valid of GET /parameters/")
 def step_impl(context):  # noqa
     _assert_response_swagger(
@@ -84,12 +95,33 @@ def step_impl(context, status_code, identifier):  # noqa
     )
 
 
-@then("return json valid of POST /parameters/{identifier}")
+@then("return json valid of PUT /parameters/{identifier}")
 def step_impl(context, identifier):  # noqa
     _assert_response_swagger(
         context,
         div_operation="operations-parameters-put_parameter_get_and_update",
         status_code=200,
+    )
+
+
+@then("return json valid of PATCH /parameters/{identifier}")
+def step_impl(context, identifier):  # noqa
+    _assert_response_swagger(
+        context,
+        div_operation="operations-parameters-patch_parameter_get_and_update",
+        status_code=200,
+    )
+
+
+@then(
+    "return json error message with status code {status_code} "
+    "of PATCH /parameters/{identifier}"
+)
+def step_impl(context, status_code, identifier):  # noqa
+    _assert_response_swagger(
+        context,
+        div_operation="operations-parameters-patch_parameter_get_and_update",
+        status_code=int(status_code),
     )
 
 

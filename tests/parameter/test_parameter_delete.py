@@ -26,7 +26,18 @@ def test_parameter_delete_ok(test_client):
     assert response.json == expected_response
 
     parameter_id = response.json["id"]
+
+    response = test_client.get_json(
+        url=url_for("api.parameter_by_id", identifier=parameter_id)
+    )
+    assert response.status_code == 200
+
     response = test_client.delete_json(
         url=url_for("api.parameter_by_id", identifier=parameter_id)
     )
     assert response.status_code == 204
+
+    response = test_client.get_json(
+        url=url_for("api.parameter_by_id", identifier=parameter_id)
+    )
+    assert response.status_code == 404
