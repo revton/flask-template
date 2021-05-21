@@ -22,7 +22,7 @@
 - [x] Admin
 - [x] Database (SQLite)
 - [x] Migration
-- [ ] API
+- [x] API
 - [ ] Login
 - [ ] Forms
 - [ ] Mail
@@ -132,12 +132,13 @@ flask --help
 ```
 Commands:
   coverage           Run/ Report/ HTML Coverage Tests.
-  dynaconf-validate  Checks validation of settings parameters.
+  db                 Perform database migrations.
+  dynaconf-validate  Check validation of settings parameters.
   lint               Lint and check code style with black, flake8 and isort.
-  radon              Checks Cyclomatic Complexity and Halstead metrics.
+  radon              Check Cyclomatic Complexity and Halstead metrics.
   routes             Show the routes for the app.
   run                Run a development server.
-  safety             Checks your installed dependencies for known security...
+  safety             Check your installed dependencies for known security...
   shell              Run a shell in the app context.
 ```
 
